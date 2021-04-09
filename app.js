@@ -5,7 +5,7 @@ async function printCurrentWeather(cityName) {
   const OPEN_WEATHER_MAP_API =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     cityName +
-    "&appid=***REMOVED***&units=metric&lang=ro";
+    "&appid=6283374885c529df7c729538778fbfdd&units=metric&lang=ro";
 
   try {
     const response = await axios.get(OPEN_WEATHER_MAP_API);
