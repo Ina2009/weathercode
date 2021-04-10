@@ -4,5 +4,6 @@ import {
 } from "./weatherAPI.js";
 const city = process.argv[2];
 
-const coords = printCurrentWeather(city);
+const coords = await printCurrentWeather(city);
+
 printCurrentWeatherFor7Days(coords);

@@ -1,5 +1,7 @@
 import axios from "axios";
 import { OPEN_WEATHER_MAP_API_KEY } from "./credentials.js";
+import Table from "cli-table3";
+import { DateTime } from "luxon";
 
 async function getData(url) {
   try {
@@ -23,11 +25,23 @@ export async function printCurrentWeather(cityName) {
   );
   return data.coord;
 }
-export async function printCurrentWeatherFor7Days(lat, long) {
+export async function printCurrentWeatherFor7Days({ lat, lon }) {
   const OPEN_WEATHER_MAP_API =
-    `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}` +
+    `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}` +
     `&appid=${OPEN_WEATHER_MAP_API_KEY}&units=metric&lang=ro`;
 
   const data = await getData(OPEN_WEATHER_MAP_API);
-  console.log(data.daily.length);
+  let table = new Table({
+    head: ["Data", "Temp max", "Temp min", "Viteza vantului"],
+  });
+  const dailyData = data.daily;
+  //console.log(dailyData);
+  dailyData.forEach((dayData) => {
+    const date = DateTime.fromSeconds(dayData.dt)
+      .setLocale("ro")
+      .toLocaleString(DateTime.DATE_MED);
+    const arr = [date, dayData.temp.max, dayData.temp.min, dayData.wind_speed];
+    table.push(arr);
+  });
+  console.log(table.toString());
 }
