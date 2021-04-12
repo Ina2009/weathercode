@@ -12,6 +12,17 @@ async function getData(url) {
     console.log(error.message);
   }
 }
+/**
+ *
+ * @typeof {Object} Coords
+ * @property (number)lat - geographical latitude
+ * @property (number)lon- geographical longitude
+ */
+/**
+ * Prints current weather conditions
+ * @param {string} cityName name of city. optional "City,(State),Country".(Use ISO cod)
+ * @returns(Coords) gepgraphical coordinates of the city
+ */
 export async function printCurrentWeather(cityName) {
   const OPEN_WEATHER_MAP_API =
     `https://api.openweathermap.org/data/2.5/weather?q=${cityName}` +
@@ -25,6 +36,12 @@ export async function printCurrentWeather(cityName) {
   );
   return data.coord;
 }
+
+/**
+ * Prints weather for 8 days
+ * @param {Coords} coords -- geographical coordinates of a location
+ *
+ */
 export async function printCurrentWeatherFor7Days({ lat, lon }) {
   const OPEN_WEATHER_MAP_API =
     `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}` +
